@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:background="#11cd6e"
+        android:id="@+id/frag_home_rl_sum"
+        >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2015年9月"
+                android:drawableEnd="@mipmap/right"
+                android:drawableRight="@mipmap/right"
+                android:textSize="22sp"
+                android:textColor="@android:color/white"
+                android:gravity="center_vertical"
+                android:layout_centerHorizontal="true"
+                android:padding="10dp"
+                android:id="@+id/frag_home_tv_date"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/frag_home_tv_date"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="22sp"
+                    android:textColor="@android:color/white"
+                    android:text="总收入：0.00"
+                    android:gravity="center"
+                    />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textSize="22sp"
+                    android:textColor="@android:color/white"
+                    android:text="总支出：0.00"
+                    android:gravity="center"
+                    />
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/frag_home_listview_record"
+        android:layout_below="@+id/frag_home_rl_sum"/>
+
+    <com.example.rth.widgets.MyPopupMenus
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
+
+</RelativeLayout>
