@@ -9,4 +9,9 @@ public class MoneyRecord {
     public String moneyOut;    //花销
     public String moneyIn;  //收入
     public String remark;   //备注
+    public int type;    //账单类型
+
+    public static final int TYPE_WEEK_OR_MONTH = 0; //显示周或月的记录
+    public static final int TYPE_NOW_RECORD = 1; //刚生成的记录
+    public static final int TYPE_RECORD_LIST = 2; //显示历史账单
 }

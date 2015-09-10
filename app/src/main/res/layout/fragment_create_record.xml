@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/green"
+        android:id="@+id/frag_create_rl_top"
+        >
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/back_bg"
+            android:layout_centerVertical="true"
+            android:padding="12dp"/>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="5dp"
+                android:text="新增支出"
+                android:gravity="center"
+                android:id="@+id/frag_create_tv_action"
+                android:layout_centerVertical="true"
+                android:textSize="18sp"
+                android:textColor="@android:color/white"
+                />
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/frag_create_tv_action"
+                android:id="@+id/frag_create_img_indicator"
+                android:src="@mipmap/sanjiao_up"
+                android:padding="4dp"
+                />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="10dp"
+        android:layout_below="@+id/frag_create_rl_top"
+        android:id="@+id/frag_create_rl_money">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:text="金额"
+            android:textSize="18sp"
+            android:layout_centerVertical="true"
+            android:id="@+id/frag_create_tv_money"
+            />
+        
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:singleLine="true"
+            android:background="@android:color/transparent"
+            android:id="@+id/frag_create_et_money"
+            android:text="0.00"
+            android:textSize="24sp"
+            android:gravity="center_vertical|end"
+            android:layout_toRightOf="@+id/frag_create_tv_money"
+            android:layout_centerVertical="true"/>
+        
+    </RelativeLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray"
+        android:layout_below="@+id/frag_create_rl_money"
+        android:id="@+id/frag_create_line1"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:id="@+id/frag_create_rl_category"
+        android:layout_below="@+id/frag_create_line1"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:text="类别"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            android:id="@+id/frag_create_tv_category"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical|end"
+            android:textSize="18sp"
+            android:text="但是的开始>就发动机"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/gray"
+        android:layout_below="@+id/frag_create_rl_category"
+        android:id="@+id/frag_create_line2"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:id="@+id/frag_create_rl_date"
+        android:layout_below="@+id/frag_create_line2"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:text="日期"
+            android:textSize="18sp"
+            android:gravity="center_vertical"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:gravity="center_vertical|end"
+            android:textSize="18sp"
+            android:text="2015-10-9 20：12"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:id="@+id/frag_create_rl_remark"
+        android:layout_below="@+id/frag_create_rl_date"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="备注"
+            android:textSize="16sp"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:id="@+id/frag_create_tv_remark_label"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray"
+            android:layout_toLeftOf="@+id/frag_create_tv_remark_label"
+            android:layout_centerVertical="true"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/gray"
+            android:layout_toRightOf="@+id/frag_create_tv_remark_label"
+            android:layout_centerVertical="true"
+            />
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:text="请输入备注"
+        android:layout_below="@+id/frag_create_rl_remark"
+        android:id="@+id/frag_create_tv_remark"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="16dp"/>
+
+    <View
+        android:layout_width="16dp"
+        android:layout_height="50dp"
+        android:id="@+id/frag_create_line3"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/frag_create_tv_remark"
+        android:layout_marginTop="16dp"
+        />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/frag_create_line3"
+        android:layout_alignBottom="@+id/frag_create_line3"
+        android:layout_marginLeft="16dp"
+        android:layout_toLeftOf="@+id/frag_create_line3"
+        android:text="保存"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:id="@+id/frag_create_btn_save"
+        android:background="@drawable/btn_save_bg"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/frag_create_line3"
+        android:layout_alignBottom="@+id/frag_create_line3"
+        android:layout_marginRight="16dp"
+        android:layout_toRightOf="@+id/frag_create_line3"
+        android:background="@drawable/btn_record_again_bg"
+        android:text="再记一笔"/>
+
+
+
+
+</RelativeLayout>
