@@ -9,4 +9,9 @@
         android:id="@+id/main_frame_container"
         />
 
+    <com.example.rth.widgets.MyPopupMenus
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/activity_main_mypopupmenu"/>
+
 </RelativeLayout>

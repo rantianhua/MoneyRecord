@@ -10,4 +10,12 @@
         <item name="android:windowExitAnimation">@anim/abc_fade_out</item>
     </style>
 
+    <declare-styleable name="MyMenuItem">
+        <attr name="textSize" format="reference|dimension"/>
+        <attr name="tv_background" format="reference"/>
+        <attr name="img_padding" format="dimension"/>
+        <attr name="img_width" format="dimension"/>
+        <attr name="img_height" format="dimension"/>
+        <attr name="img_src" format="reference|integer"/>
+    </declare-styleable>
 </resources>

@@ -14,7 +14,8 @@
             android:layout_height="48dp"
             android:src="@drawable/back_bg"
             android:layout_centerVertical="true"
-            android:padding="12dp"/>
+            android:padding="12dp"
+            android:id="@+id/frag_create_img_back"/>
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -29,7 +30,7 @@
                 android:gravity="center"
                 android:id="@+id/frag_create_tv_action"
                 android:layout_centerVertical="true"
-                android:textSize="18sp"
+                android:textSize="20sp"
                 android:textColor="@android:color/white"
                 />
 
@@ -62,6 +63,7 @@
             android:layout_height="wrap_content" 
             android:text="金额"
             android:textSize="18sp"
+            android:textColor="@color/tv_label_color"
             android:layout_centerVertical="true"
             android:id="@+id/frag_create_tv_money"
             />
@@ -102,7 +104,8 @@
             android:text="类别"
             android:textSize="18sp"
             android:gravity="center_vertical"
-            android:id="@+id/frag_create_tv_category"/>
+            android:textColor="@color/tv_label_color"
+            android:id="@+id/frag_create_tv_category_label"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -111,7 +114,8 @@
             android:textSize="18sp"
             android:text="但是的开始>就发动机"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:id="@+id/frag_create_tv_category"/>
 
     </RelativeLayout>
 
@@ -137,8 +141,10 @@
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:text="日期"
+            android:textColor="@color/tv_label_color"
             android:textSize="18sp"
             android:gravity="center_vertical"
+            android:id="@+id/frag_create_tv_date_label"
             />
 
         <TextView
@@ -148,7 +154,8 @@
             android:textSize="18sp"
             android:text="2015-10-9 20：12"
             android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:id="@+id/frag_create_tv_date"/>
 
     </RelativeLayout>
 
@@ -202,7 +209,7 @@
 
     <View
         android:layout_width="16dp"
-        android:layout_height="50dp"
+        android:layout_height="40dp"
         android:id="@+id/frag_create_line3"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/frag_create_tv_remark"
@@ -233,6 +240,39 @@
         android:text="再记一笔"/>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/frag_create_ll_wheels">
+    
+        <com.example.rth.widgets.wheel.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/frag_create_wheel_one"/>
+        <com.example.rth.widgets.wheel.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/frag_create_wheel_two"/>
+        <com.example.rth.widgets.wheel.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/frag_create_wheel_three"/>
+        <com.example.rth.widgets.wheel.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/frag_create_wheel_four"/>
+        <com.example.rth.widgets.wheel.WheelView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:id="@+id/frag_create_wheel_five"
+            />
 
+    </LinearLayout>
 
 </RelativeLayout>
