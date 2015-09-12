@@ -2,16 +2,14 @@ package com.example.rth.fragments;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
-import android.graphics.Rect;
-import android.media.Image;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.view.Gravity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.DecelerateInterpolator;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -20,13 +18,13 @@ import android.widget.TextView;
 
 import com.example.rth.BaseHomeFragment;
 import com.example.rth.adapter.WheelTextAdapter;
+import com.example.rth.data.WheelData;
 import com.example.rth.moneyrecord.R;
+import com.example.rth.util.Utils;
 import com.example.rth.util.WheelDataUtils;
 import com.example.rth.widgets.wheel.TosGallery;
 import com.example.rth.widgets.wheel.WheelView;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,12 +45,19 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
     private RelativeLayout rlCategory;  //类别项
     private RelativeLayout rlDate;  //日期项
     private TextView tvMoneyLabel,tvCategory,tvGatvCategoryLabel,tvDate,tvDateLabel;  //
-    private EditText etMoney;
+    private EditText etMoney;   //输入金额
+    private Button btnSave; //保存帐单
+    private Button btnAgain;    //再记一笔
+    private float llWheelHeight;
+    private ValueAnimator wheelShow; //滚轮显示的动画
+    private ValueAnimator wheelHide; //滚轮消失的动画
+    private int currentWheel = -1;   //表示当前滚轮显示的内容，0表示日期，1表示类别
+    private StringBuilder builder = new StringBuilder();    //字符串拼接
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initAnimationSet();
+        WheelDataUtils.getYears();
     }
 
     @Override
@@ -67,19 +72,30 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         wvFour = (WheelView) view.findViewById(R.id.frag_create_wheel_four);
         wvFive = (WheelView) view.findViewById(R.id.frag_create_wheel_five);
         llWheel = (LinearLayout) view.findViewById(R.id.frag_create_ll_wheels);
+        //得出llWheel的高度
+        llWheel.post(new Runnable() {
+            @Override
+            public void run() {
+                llWheelHeight = llWheel.getHeight();
+                Log.e("llWheel height is ",llWheelHeight + "");
+            }
+        });
         rlCategory = (RelativeLayout) view.findViewById(R.id.frag_create_rl_category);
         rlDate = (RelativeLayout) view.findViewById(R.id.frag_create_rl_date);
-        tvMoneyLabel = (TextView) view.findViewById(R.id.frag_create_tv_category_label);
+        tvMoneyLabel = (TextView) view.findViewById(R.id.frag_create_tv_money);
         etMoney = (EditText) view.findViewById(R.id.frag_create_et_money);
         tvCategory = (TextView) view.findViewById(R.id.frag_create_tv_category);
         tvGatvCategoryLabel = (TextView) view.findViewById(R.id.frag_create_tv_category_label);
         tvDate = (TextView) view.findViewById(R.id.frag_create_tv_date);
         tvDateLabel = (TextView) view.findViewById(R.id.frag_create_tv_date_label);
+        btnSave = (Button) view.findViewById(R.id.frag_create_btn_save);
+        btnAgain = (Button) view.findViewById(R.id.frag_create_btn_again);
         wvOne.setGravity(WheelView.VERTICAL);
         wvTwo.setGravity(WheelView.VERTICAL);
         wvThree.setGravity(WheelView.VERTICAL);
         wvFour.setGravity(WheelView.VERTICAL);
         wvFive.setGravity(WheelView.VERTICAL);
+        initAnimationSet();
         return view;
     }
 
@@ -99,11 +115,55 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         wvFive.setAdapter(new WheelTextAdapter(getActivity()));
         wvThree.setAdapter(new WheelTextAdapter(getActivity()));
         wvFour.setAdapter(new WheelTextAdapter(getActivity()));
+        changeWheelData(wvTwo, WheelDataUtils.MONTH);
+        wvTwo.setSelection(Utils.getCurrentMonth() - 1);
+        WheelDataUtils.getDay(Utils.getCurrentYear(),Utils.getCurrentMonth());
+        changeWheelData(wvThree, WheelDataUtils.DAY);
+        wvThree.setSelection(Utils.getCurrentDay()-1);
+        showCategoryText(0, 0);
+    }
+
+    /**
+     * 显示当前分类
+     * @param mainIndex 主分类的索引
+     * @param subIndex 子分类的索引
+     */
+    private void showCategoryText(int mainIndex,int subIndex) {
+        if(action == ACTION_IN) {
+            builder.append(WheelDataUtils.firstCategoryIn.get(mainIndex).text);
+            builder.append(">");
+            builder.append(WheelDataUtils.mapSecondIn.get(mainIndex).get(subIndex).text);
+        }else if(action == ACTION_OUT) {
+            builder.append(WheelDataUtils.firstCategoryOut.get(mainIndex).text);
+            builder.append(">");
+            builder.append(WheelDataUtils.mapSecondOut.get(mainIndex).get(subIndex).text);
+        }
+        tvCategory.setText(builder.toString());
+        builder.delete(0,builder.length());
     }
 
     @Override
     public void onEndFling(TosGallery v) {
+        //得到选中项的索引
+        int position = v.getSelectedItemPosition();
+        if(v == wvOne) {
+            if(currentWheel == 1) {
+                List<WheelData> newData = action == ACTION_IN ? WheelDataUtils.mapSecondIn.get(position)
+                        : WheelDataUtils.mapSecondOut.get(position);
+                changeWheelData(wvFive, newData);
+                showCategoryText(position,wvFive.getSelectedItemPosition());
+            }
+        }else if(v == wvTwo) {
 
+        }else if(v == wvThree) {
+
+        }else if(v == wvFour) {
+
+        }else if(v == wvFive) {
+            if(currentWheel == 1) {
+                showCategoryText(wvOne.getSelectedItemPosition(),position);
+            }
+        }
     }
 
     @Override
@@ -131,42 +191,127 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
      */
     private void showDateTime() {
         if(llWheel.getVisibility() == View.VISIBLE) {
-            hideWheel();
+            if(currentWheel != 0) {
+                hideWheel(true,0);
+            }
+        }else {
+            showWheel(0);
         }
-        wvTwo.setVisibility(View.VISIBLE);
-        wvThree.setVisibility(View.VISIBLE);
-        wvFour.setVisibility(View.VISIBLE);
-        showWheel();
     }
 
     /**
      * 展示滚轮
+     * @param index 0表示显示日期滚轮
+     *              1表示显示类别滚轮
      */
-    private void showWheel() {
-        ValueAnimator show = ValueAnimator.ofFloat(1f,0f);
-        show.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+    private void showWheel(final int index) {
+        wheelShow = ValueAnimator.ofFloat( llWheelHeight,0f);
+        wheelShow.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                llWheel.setTranslationY((float)valueAnimator.getAnimatedValue());
+                llWheel.setTranslationY((float) valueAnimator.getAnimatedValue());
             }
         });
-        show.setDuration(120);
-        show.start();
+        wheelShow.setInterpolator(new DecelerateInterpolator());
+        wheelShow.setDuration(200);
+        wheelShow.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+                btnSave.setVisibility(View.INVISIBLE);
+                btnAgain.setVisibility(View.INVISIBLE);
+                llWheel.setVisibility(View.VISIBLE);
+                if(index == 0) {
+                    wvTwo.setVisibility(View.VISIBLE);
+                    wvThree.setVisibility(View.VISIBLE);
+                    wvFour.setVisibility(View.VISIBLE);
+                }else if(index == 1) {
+                    wvTwo.setVisibility(View.GONE);
+                    wvThree.setVisibility(View.GONE);
+                    wvFour.setVisibility(View.GONE);
+                    if(action == ACTION_IN) {
+                        changeWheelData(wvOne, WheelDataUtils.firstCategoryIn);
+                        changeWheelData(wvFive, WheelDataUtils.mapSecondIn.get(0));
+                    }else if(action == ACTION_OUT) {
+                        changeWheelData(wvOne, WheelDataUtils.firstCategoryOut);
+                        changeWheelData(wvFive, WheelDataUtils.mapSecondOut.get(0));
+                    }
+                }
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                currentWheel = index;
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+        wheelShow.start();
+    }
+
+    /**
+     * 更新滚轮的数据
+     * @param wv    待更新的滚轮
+     * @param data 新的数据
+     */
+    private void changeWheelData(WheelView wv,List<WheelData> data) {
+        WheelTextAdapter adapterOne = (WheelTextAdapter)wv.getAdapter();
+        adapterOne.setData(data);
     }
 
     /**
      * 隐藏滚轮
+     * @param showOther 表示要不要在消失后再显示新的滚轮
+     * @param index 0表示显示日期滚轮
+     *              1表示显示类别滚轮
      */
-    private void hideWheel() {
-        ValueAnimator hide = ValueAnimator.ofFloat(0f,1f);
-        hide.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+    private void hideWheel(final boolean showOther,final int index) {
+        wheelHide = ValueAnimator.ofFloat(0f,llWheelHeight);
+        wheelHide.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             @Override
             public void onAnimationUpdate(ValueAnimator valueAnimator) {
-                llWheel.setTranslationY((float)valueAnimator.getAnimatedValue());
+                llWheel.setTranslationY((float) valueAnimator.getAnimatedValue());
             }
         });
-        hide.setDuration(120);
-        hide.start();
+        wheelHide.setDuration(200);
+        wheelHide.setInterpolator(new DecelerateInterpolator());
+        wheelHide.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                currentWheel = -1;
+                if (showOther) {
+                    Log.e("hideWheel","showOther");
+                    showWheel(index);
+                } else {
+                    llWheel.setVisibility(View.INVISIBLE);
+                    btnSave.setVisibility(View.VISIBLE);
+                    btnAgain.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+
+            }
+        });
+        wheelHide.start();
     }
 
     /**
@@ -174,16 +319,14 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
      */
     private void showCategory() {
         if(llWheel.getVisibility() == View.VISIBLE) {
-            hideWheel();
+            if(currentWheel != 1) {
+                hideWheel(true,1);
+            }else {
+                hideWheel(false,-1);
+            }
+        }else {
+            showWheel(1);
         }
-        wvTwo.setVisibility(View.GONE);
-        wvThree.setVisibility(View.GONE);
-        wvFour.setVisibility(View.GONE);
-        WheelTextAdapter adapterOne = (WheelTextAdapter)wvOne.getAdapter();
-        adapterOne.setData(WheelDataUtils.firstCategoryIn);
-        WheelTextAdapter adapterTwo = (WheelTextAdapter)wvFive.getAdapter();
-        adapterTwo.setData(WheelDataUtils.mapFirstIn.get(0));
-        showWheel();
     }
 
     /**
@@ -269,6 +412,7 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
             public void onAnimationEnd(Animator animator) {
                 tvTitle.setClickable(true);
                 action = action == ACTION_IN ? ACTION_OUT : ACTION_IN;
+                showCategoryText(0,0);
             }
 
             @Override

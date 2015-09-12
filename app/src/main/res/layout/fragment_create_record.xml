@@ -237,6 +237,7 @@
         android:layout_marginRight="16dp"
         android:layout_toRightOf="@+id/frag_create_line3"
         android:background="@drawable/btn_record_again_bg"
+        android:id="@+id/frag_create_btn_again"
         android:text="再记一笔"/>
 
 
@@ -244,7 +245,8 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_alignParentBottom="true"
-        android:id="@+id/frag_create_ll_wheels">
+        android:id="@+id/frag_create_ll_wheels"
+        android:visibility="invisible">
     
         <com.example.rth.widgets.wheel.WheelView
             android:layout_width="0dp"

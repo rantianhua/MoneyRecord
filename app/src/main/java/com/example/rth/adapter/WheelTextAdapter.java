@@ -60,7 +60,7 @@ public class WheelTextAdapter extends BaseAdapter {
             if(data.imgId == -1) {
                 //没有图标
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.wheel_item_without_icon,null);
-                holder.tvText = (TextView) convertView;
+                holder.tvText = (TextView) convertView.findViewById(R.id.wheel_item_without_icon_tv_text);
             }else {
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.wheel_item_with_icon,null);
                 holder.tvText = (TextView) convertView.findViewById(R.id.wheel_item_tv_text);
