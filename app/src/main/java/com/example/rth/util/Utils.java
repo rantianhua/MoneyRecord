@@ -3,7 +3,12 @@ package com.example.rth.util;
 import android.content.Context;
 import android.util.Log;
 
+import com.example.rth.data.MoneyRecord;
+import com.example.rth.data.WheelData;
+
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by rth on 15-9-11.
@@ -57,8 +62,15 @@ public class Utils {
         return calendar.get(Calendar.MINUTE);
     }
 
+    /**
+     * 获取当期的时间
+     * @return
+     */
     public static int getCurrentHours() {
         Calendar calendar = Calendar.getInstance();
         return calendar.get(Calendar.HOUR_OF_DAY);
     }
+
+    //建立的账单
+    public static List<MoneyRecord> RECORDS = new ArrayList<>();
 }

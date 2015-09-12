@@ -5,8 +5,13 @@ import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +26,7 @@ import android.widget.TextView;
 
 import com.example.rth.BaseHomeFragment;
 import com.example.rth.adapter.WheelTextAdapter;
+import com.example.rth.data.MoneyRecord;
 import com.example.rth.data.WheelData;
 import com.example.rth.moneyrecord.R;
 import com.example.rth.util.Utils;
@@ -57,11 +63,41 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
     private int currentWheel = -1;   //表示当前滚轮显示的内容，0表示日期，1表示类别
     private StringBuilder builder = new StringBuilder();    //字符串拼接
     private String remark;  //备注
+    private String dateTime;    //时间
+    private String cateGory;    //类别
+    private int iconId; //图片id
+
+    private int colorRed,colorGreen;
+    private boolean haveLimitInputSize = false; //标识有没有限制etMoney的长度
+
+    //为EditText设置监听
+    private final TextWatcher moneyWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            String text = editable.toString();
+            if(text.contains(".") && !haveLimitInputSize) {
+                //限制长度
+                etMoney.setFilters(new InputFilter[]{new InputFilter.LengthFilter(text.length()+2)});
+                haveLimitInputSize = true;
+            }
+        }
+    };
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WheelDataUtils.getYears();
+        colorGreen = getResources().getColor(R.color.green);
+        colorRed = getResources().getColor(R.color.red);
     }
 
     @Override
@@ -87,12 +123,14 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         rlDate = (RelativeLayout) view.findViewById(R.id.frag_create_rl_date);
         tvMoneyLabel = (TextView) view.findViewById(R.id.frag_create_tv_money);
         etMoney = (EditText) view.findViewById(R.id.frag_create_et_money);
+        etMoney.addTextChangedListener(moneyWatcher);
+        setEtMoneyColor();
         tvCategory = (TextView) view.findViewById(R.id.frag_create_tv_category);
         tvGatvCategoryLabel = (TextView) view.findViewById(R.id.frag_create_tv_category_label);
         tvDate = (TextView) view.findViewById(R.id.frag_create_tv_date);
         tvDateLabel = (TextView) view.findViewById(R.id.frag_create_tv_date_label);
         tvRemark = (TextView) view.findViewById(R.id.frag_create_tv_remark);
-        if(remark != null) {
+        if(!TextUtils.isEmpty(remark)) {
             tvRemark.setText(remark);
         }
         btnSave = (Button) view.findViewById(R.id.frag_create_btn_save);
@@ -109,15 +147,31 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         wvFour.setAdapter(new WheelTextAdapter(getActivity()));
         changeWheelData(wvTwo, WheelDataUtils.MONTH);
         wvTwo.setSelection(Utils.getCurrentMonth());
-        WheelDataUtils.getDay(Utils.getCurrentYear(), Utils.getCurrentMonth()+1);
+        WheelDataUtils.getDay(Utils.getCurrentYear(), Utils.getCurrentMonth() + 1);
         changeWheelData(wvThree, WheelDataUtils.DAY);
         wvThree.setSelection(Utils.getCurrentDay() - 1);
         changeWheelData(wvFour, WheelDataUtils.HOURS);
         wvFour.setSelection(Utils.getCurrentHours());
-        showTime(null,null,null,null,null);
-        showCategoryText(0, 0);
+        if(!TextUtils.isEmpty(dateTime)) {
+            tvDate.setText(dateTime);
+        }else {
+            showTime(null,null,null,null,null);
+        }
+        if(!TextUtils.isEmpty(cateGory)) {
+            tvCategory.setText(cateGory);
+        }else {
+            showCategoryText(0, 0);
+        }
         initAnimationSet();
         return view;
+    }
+
+    public void setEtMoneyColor() {
+        if(action == ACTION_IN) {
+            etMoney.setTextColor(colorRed);
+        }else if(action == ACTION_OUT) {
+            etMoney.setTextColor(colorGreen);
+        }
     }
 
     @Override
@@ -145,10 +199,12 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
             builder.append(WheelDataUtils.firstCategoryIn.get(mainIndex).text);
             builder.append(">");
             builder.append(WheelDataUtils.mapSecondIn.get(mainIndex).get(subIndex).text);
+            iconId = WheelDataUtils.mapSecondIn.get(mainIndex).get(subIndex).imgId;
         }else if(action == ACTION_OUT) {
             builder.append(WheelDataUtils.firstCategoryOut.get(mainIndex).text);
             builder.append(">");
             builder.append(WheelDataUtils.mapSecondOut.get(mainIndex).get(subIndex).text);
+            iconId = WheelDataUtils.mapSecondOut.get(mainIndex).get(subIndex).imgId;
         }
         tvCategory.setText(builder.toString());
         builder.delete(0, builder.length());
@@ -252,7 +308,60 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
             case R.id.frag_create_tv_remark:
                 getRemark();
                 break;
+            case R.id.frag_create_btn_save:
+                saveRecord();
+                dismiss();
+                break;
+            case R.id.frag_create_btn_again:
+                saveRecord();
+                resetInput();
+                break;
         }
+    }
+
+    /**
+     * 重新输入
+     */
+    private void resetInput() {
+        showTime(null, null, null, null, null);
+        tvRemark.setText("请填写备注信息");
+    }
+
+    /**
+     * 退出该界面
+     */
+    private void dismiss() {
+        if(getActivity() != null) {
+            getActivity().finish();
+        }
+    }
+
+    /**
+     * 保存该账单
+     */
+    private void saveRecord() {
+        String money = etMoney.getText().toString();
+        String moneyIn = null;
+        String moneyOut = null;
+        if(action == ACTION_IN) {
+            builder.append("+");
+            builder.append(money);
+            moneyIn = builder.toString();
+        }else if(action == ACTION_OUT){
+            builder.append("-");
+            builder.append(money);
+            moneyOut = builder.toString();
+        }
+        builder.delete(0,builder.length());
+        cateGory = tvCategory.getText().toString();
+        dateTime = tvDate.getText().toString();
+        remark = tvRemark.getText().toString();
+        MoneyRecord moneyRecord = new MoneyRecord(cateGory.substring(cateGory.indexOf(">")+1),
+                dateTime,moneyIn,moneyOut,remark,iconId,MoneyRecord.TYPE_NOW_RECORD);
+        Utils.RECORDS.add(moneyRecord);
+        cateGory = null;
+        remark = null;
+        dateTime = null;
     }
 
     /**
@@ -493,7 +602,8 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
             public void onAnimationEnd(Animator animator) {
                 tvTitle.setClickable(true);
                 action = action == ACTION_IN ? ACTION_OUT : ACTION_IN;
-                showCategoryText(0,0);
+                setEtMoneyColor();
+                showCategoryText(0, 0);
             }
 
             @Override
@@ -508,15 +618,27 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         });
     }
 
+    @Override
+    public void onPause() {
+        super.onPause();
+        remark = tvRemark.getText().toString();
+        cateGory = tvCategory.getText().toString();
+        dateTime = tvDate.getText().toString();
+    }
+
     /**
      * 获取用户输入的备注
      */
     public void getRemark() {
         String category = tvCategory.getText().toString();
         String subCate = category.substring(category.indexOf(">") + 1);
-        Fragment remark = RemarkFragment.getInstance(etMoney.getText().toString(),subCate);
-        remark.setTargetFragment(this,REQUEST_REMARK);
-        getFragmentManager().beginTransaction().replace(R.id.activity_create_rl_container,remark)
+        String mon = etMoney.getText().toString();
+        if(TextUtils.isEmpty(mon)) {
+            mon = "0.00";
+        }
+        Fragment remarkFragment = RemarkFragment.getInstance(mon,subCate,remark);
+        remarkFragment.setTargetFragment(this,REQUEST_REMARK);
+        getFragmentManager().beginTransaction().replace(R.id.activity_create_rl_container,remarkFragment)
                 .addToBackStack("remark").commit();
     }
 
@@ -530,4 +652,5 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
+
 }

@@ -22,6 +22,7 @@ public class RemarkFragment extends BaseHomeFragment {
 
     private String money;   //金额
     private String category;    //目录
+    private String remark;  //之前已有的备注
 
     private TextView tvCategory,tvMoney;
     private EditText etRemark;  //输入框
@@ -34,6 +35,11 @@ public class RemarkFragment extends BaseHomeFragment {
         if(bundle != null) {
             money = bundle.getString("category");
             category = bundle.getString("money");
+            try {
+                remark = bundle.getString("remark");
+            }catch (Exception e) {
+
+            }
         }
     }
 
@@ -47,6 +53,9 @@ public class RemarkFragment extends BaseHomeFragment {
         imgOk = (ImageView) view.findViewById(R.id.frag_remark_img_ok);
         tvCategory.setText(category);
         tvMoney.setText("金额:" + money);
+        if(!TextUtils.isEmpty(remark)) {
+            etRemark.setText(remark);
+        }
         return view;
     }
 
@@ -83,7 +92,7 @@ public class RemarkFragment extends BaseHomeFragment {
         if(!TextUtils.isEmpty(remark)) {
             if(getTargetFragment() != null) {
                 Intent intent = new Intent();
-                intent.putExtra("remark",remark);
+                intent.putExtra("remark", remark);
                 getTargetFragment().onActivityResult(CreateRecordFragment.REQUEST_REMARK, Activity.RESULT_OK,
                         intent);
             }
@@ -91,10 +100,13 @@ public class RemarkFragment extends BaseHomeFragment {
         back();
     }
 
-    public static RemarkFragment getInstance(String category,String money) {
+    public static RemarkFragment getInstance(String category,String money,String remark) {
         Bundle bundle = new Bundle();
         bundle.putString("category",category);
         bundle.putString("money", money);
+        if(!TextUtils.isEmpty(remark)) {
+            bundle.putString("remark", remark);
+        }
         RemarkFragment fragment = new RemarkFragment();
         fragment.setArguments(bundle);
         return fragment;

@@ -53,29 +53,29 @@
       <file leaf-file-name="CreateRecordFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/fragments/CreateRecordFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.3310463">
-              <caret line="87" column="71" selection-start-line="87" selection-start-column="71" selection-end-line="87" selection-end-column="71" />
+            <state vertical-scroll-proportion="0.45969126">
+              <caret line="634" column="50" selection-start-line="634" selection-start-column="50" selection-end-line="634" selection-end-column="50" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3291#3438#0" expanded="true" />
-                <element signature="e#3437#3438#0" expanded="true" />
-                <element signature="e#11140#11386#0" expanded="true" />
-                <element signature="e#11385#11386#0" expanded="true" />
-                <element signature="e#13179#13180#0" expanded="true" />
-                <element signature="e#13231#13232#0" expanded="true" />
+                <element signature="e#4522#4669#0" expanded="true" />
+                <element signature="e#4668#4669#0" expanded="true" />
+                <element signature="e#14605#14851#0" expanded="true" />
+                <element signature="e#14850#14851#0" expanded="true" />
+                <element signature="e#16644#16645#0" expanded="true" />
+                <element signature="e#16696#16697#0" expanded="true" />
                 <element signature="method#hideWheel#0;class#CreateRecordFragment#0" expanded="false" />
-                <element signature="e#14043#14289#0" expanded="true" />
-                <element signature="e#14288#14289#0" expanded="true" />
-                <element signature="e#16013#16373#0" expanded="true" />
-                <element signature="e#16372#16373#0" expanded="true" />
-                <element signature="e#16477#16837#0" expanded="true" />
-                <element signature="e#16836#16837#0" expanded="true" />
-                <element signature="e#17618#18010#0" expanded="true" />
-                <element signature="e#18009#18010#0" expanded="true" />
-                <element signature="e#18240#18241#0" expanded="true" />
-                <element signature="e#18299#18300#0" expanded="true" />
-                <element signature="e#18636#18637#0" expanded="true" />
-                <element signature="e#18694#18695#0" expanded="true" />
+                <element signature="e#17508#17754#0" expanded="true" />
+                <element signature="e#17753#17754#0" expanded="true" />
+                <element signature="e#19478#19838#0" expanded="true" />
+                <element signature="e#19837#19838#0" expanded="true" />
+                <element signature="e#19942#20302#0" expanded="true" />
+                <element signature="e#20301#20302#0" expanded="true" />
+                <element signature="e#21083#21475#0" expanded="true" />
+                <element signature="e#21474#21475#0" expanded="true" />
+                <element signature="e#21705#21706#0" expanded="true" />
+                <element signature="e#21764#21765#0" expanded="true" />
+                <element signature="e#22137#22138#0" expanded="true" />
+                <element signature="e#22195#22196#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -84,13 +84,23 @@
       <file leaf-file-name="fragment_create_record.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_create_record.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-4.6363635">
-              <caret line="205" column="46" selection-start-line="205" selection-start-column="25" selection-end-line="205" selection-end-column="46" />
+            <state vertical-scroll-proportion="-10.0">
+              <caret line="80" column="31" selection-start-line="80" selection-start-column="31" selection-end-line="80" selection-end-column="31" />
               <folding />
             </state>
           </provider>
           <provider editor-type-id="android-designer">
             <state />
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="HomeFragment.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/fragments/HomeFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="62" column="29" selection-start-line="62" selection-start-column="29" selection-end-line="62" selection-end-column="29" />
+              <folding />
+            </state>
           </provider>
         </entry>
       </file>
@@ -98,47 +108,26 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/fragments/RemarkFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="69" column="9" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="9" />
+              <caret line="61" column="13" selection-start-line="61" selection-start-column="13" selection-end-line="61" selection-end-column="13" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1789#1932#0" expanded="true" />
-                <element signature="e#1931#1932#0" expanded="true" />
-                <element signature="e#1968#2119#0" expanded="true" />
-                <element signature="e#2118#2119#0" expanded="true" />
+                <element signature="e#2037#2180#0" expanded="true" />
+                <element signature="e#2179#2180#0" expanded="true" />
+                <element signature="e#2216#2367#0" expanded="true" />
+                <element signature="e#2366#2367#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fragment_remark.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_remark.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-25.515152">
-              <caret line="71" column="40" selection-start-line="71" selection-start-column="40" selection-end-line="71" selection-end-column="40" />
-              <folding />
-            </state>
-          </provider>
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="et_remark_bg.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/et_remark_bg.xml">
+      <file leaf-file-name="Utils.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/util/Utils.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="8" column="58" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="58" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ok_bg.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ok_bg.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-              <folding />
+              <caret line="74" column="34" selection-start-line="74" selection-start-column="23" selection-end-line="74" selection-end-column="34" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1492,7 +1481,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/animator/menu_show.xml" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rth/data/MoneyRecord.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rth/fragments/HomeFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/record_item_left.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rth/adapter/HomeListAdapter.java" />
@@ -1525,14 +1513,15 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rth/adapter/WheelTextAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/wheel_item_with_icon.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/wheel_item_without_icon.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rth/util/Utils.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rth/widgets/wheel/TosGallery.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rth/util/WheelDataUtils.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/ok_bg.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_remark.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/colors.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/et_remark_bg.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rth/fragments/RemarkFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rth/util/WheelDataUtils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rth/util/Utils.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/rth/data/MoneyRecord.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_create_record.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/rth/fragments/CreateRecordFragment.java" />
       </list>
@@ -2488,7 +2477,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3284553" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2502,10 +2491,10 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6211382" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.0" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28217426" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.28217426" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -2532,20 +2521,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/rth/fragments/CreateRecordFragment.java</url>
-          <line>247</line>
-          <properties />
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/example/rth/fragments/CreateRecordFragment.java</url>
-          <line>246</line>
-          <properties />
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="3" />
     </breakpoint-manager>
     <watches-manager />
@@ -2577,13 +2552,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/data/MoneyRecord.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.32352942">
-          <caret line="11" column="30" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
         </state>
       </provider>
     </entry>
@@ -2649,13 +2617,6 @@
       </provider>
       <provider editor-type-id="android-designer">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/fragments/HomeFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="83" column="59" selection-start-line="83" selection-start-column="46" selection-end-line="83" selection-end-column="59" />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml">
@@ -2732,6 +2693,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="47" column="52" selection-start-line="47" selection-start-column="52" selection-end-line="47" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#462#835#0" expanded="true" />
+            <element signature="e#834#835#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2796,17 +2762,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/data/WheelData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4373928">
-          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
-          <folding>
-            <element signature="e#211#212#0" expanded="false" />
-            <element signature="e#243#244#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/color/tv_label_color.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.10291595">
@@ -2858,16 +2813,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/util/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.5438067">
-          <caret line="61" column="47" selection-start-line="61" selection-start-column="47" selection-end-line="61" selection-end-column="47" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/widgets/wheel/TosGallery.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.37049744">
@@ -2888,16 +2833,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/util/WheelDataUtils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23327616">
-          <caret line="124" column="45" selection-start-line="124" selection-start-column="45" selection-end-line="124" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/back_bg.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2572899">
@@ -2909,22 +2844,6 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ok_gray.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ok_bg.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/et_remark_bg.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="8" column="58" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="58" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
@@ -2940,36 +2859,11 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_remark.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-25.515152">
-          <caret line="71" column="40" selection-start-line="71" selection-start-column="40" selection-end-line="71" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/moneyrecord/CreateRecordActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5403088">
           <caret line="25" column="92" selection-start-line="25" selection-start-column="64" selection-end-line="25" selection-end-column="92" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/fragments/RemarkFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="69" column="9" selection-start-line="69" selection-start-column="9" selection-end-line="69" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1789#1932#0" expanded="true" />
-            <element signature="e#1931#1932#0" expanded="true" />
-            <element signature="e#1968#2119#0" expanded="true" />
-            <element signature="e#2118#2119#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -2984,10 +2878,93 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_remark.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.5309091">
+          <caret line="71" column="40" selection-start-line="71" selection-start-column="40" selection-end-line="71" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/util/WheelDataUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.81989706">
+          <caret line="149" column="1" selection-start-line="149" selection-start-column="1" selection-end-line="149" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ok_bg.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2572899">
+          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/et_remark_bg.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2058319">
+          <caret line="8" column="58" selection-start-line="8" selection-start-column="54" selection-end-line="8" selection-end-column="58" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/fragments/RemarkFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="61" column="13" selection-start-line="61" selection-start-column="13" selection-end-line="61" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2037#2180#0" expanded="true" />
+            <element signature="e#2179#2180#0" expanded="true" />
+            <element signature="e#2216#2367#0" expanded="true" />
+            <element signature="e#2366#2367#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/data/WheelData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.23156089">
+          <caret line="9" column="30" selection-start-line="9" selection-start-column="30" selection-end-line="9" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/util/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="74" column="34" selection-start-line="74" selection-start-column="23" selection-end-line="74" selection-end-column="34" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/data/MoneyRecord.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3727034">
+          <caret line="15" column="8" selection-start-line="15" selection-start-column="8" selection-end-line="15" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/fragments/HomeFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="62" column="29" selection-start-line="62" selection-start-column="29" selection-end-line="62" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_create_record.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-4.6363635">
-          <caret line="205" column="46" selection-start-line="205" selection-start-column="25" selection-end-line="205" selection-end-column="46" />
+        <state vertical-scroll-proportion="-10.0">
+          <caret line="80" column="31" selection-start-line="80" selection-start-column="31" selection-end-line="80" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -2997,29 +2974,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/rth/fragments/CreateRecordFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3310463">
-          <caret line="87" column="71" selection-start-line="87" selection-start-column="71" selection-end-line="87" selection-end-column="71" />
+        <state vertical-scroll-proportion="0.45969126">
+          <caret line="634" column="50" selection-start-line="634" selection-start-column="50" selection-end-line="634" selection-end-column="50" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3291#3438#0" expanded="true" />
-            <element signature="e#3437#3438#0" expanded="true" />
-            <element signature="e#11140#11386#0" expanded="true" />
-            <element signature="e#11385#11386#0" expanded="true" />
-            <element signature="e#13179#13180#0" expanded="true" />
-            <element signature="e#13231#13232#0" expanded="true" />
+            <element signature="e#4522#4669#0" expanded="true" />
+            <element signature="e#4668#4669#0" expanded="true" />
+            <element signature="e#14605#14851#0" expanded="true" />
+            <element signature="e#14850#14851#0" expanded="true" />
+            <element signature="e#16644#16645#0" expanded="true" />
+            <element signature="e#16696#16697#0" expanded="true" />
             <element signature="method#hideWheel#0;class#CreateRecordFragment#0" expanded="false" />
-            <element signature="e#14043#14289#0" expanded="true" />
-            <element signature="e#14288#14289#0" expanded="true" />
-            <element signature="e#16013#16373#0" expanded="true" />
-            <element signature="e#16372#16373#0" expanded="true" />
-            <element signature="e#16477#16837#0" expanded="true" />
-            <element signature="e#16836#16837#0" expanded="true" />
-            <element signature="e#17618#18010#0" expanded="true" />
-            <element signature="e#18009#18010#0" expanded="true" />
-            <element signature="e#18240#18241#0" expanded="true" />
-            <element signature="e#18299#18300#0" expanded="true" />
-            <element signature="e#18636#18637#0" expanded="true" />
-            <element signature="e#18694#18695#0" expanded="true" />
+            <element signature="e#17508#17754#0" expanded="true" />
+            <element signature="e#17753#17754#0" expanded="true" />
+            <element signature="e#19478#19838#0" expanded="true" />
+            <element signature="e#19837#19838#0" expanded="true" />
+            <element signature="e#19942#20302#0" expanded="true" />
+            <element signature="e#20301#20302#0" expanded="true" />
+            <element signature="e#21083#21475#0" expanded="true" />
+            <element signature="e#21474#21475#0" expanded="true" />
+            <element signature="e#21705#21706#0" expanded="true" />
+            <element signature="e#21764#21765#0" expanded="true" />
+            <element signature="e#22137#22138#0" expanded="true" />
+            <element signature="e#22195#22196#0" expanded="true" />
           </folding>
         </state>
       </provider>

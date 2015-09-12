@@ -74,10 +74,11 @@
             android:singleLine="true"
             android:background="@android:color/transparent"
             android:id="@+id/frag_create_et_money"
-            android:text="0.00"
             android:textSize="24sp"
             android:gravity="center_vertical|end"
+            android:inputType="numberDecimal"
             android:layout_toRightOf="@+id/frag_create_tv_money"
+            android:hint="0.00"
             android:layout_centerVertical="true"/>
         
     </RelativeLayout>
