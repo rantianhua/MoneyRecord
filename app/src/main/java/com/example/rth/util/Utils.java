@@ -1,6 +1,7 @@
 package com.example.rth.util;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.Calendar;
 
@@ -8,6 +9,8 @@ import java.util.Calendar;
  * Created by rth on 15-9-11.
  */
 public class Utils {
+
+    private static int currentHours;
 
     /**
      * 像素转换为dp
@@ -43,5 +46,19 @@ public class Utils {
     public static int getCurrentDay() {
         Calendar calendar = Calendar.getInstance();
         return calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
+    /**
+     * 获取当前的分钟
+     * @return
+     */
+    public static int getCurrentMinite() {
+        Calendar calendar = Calendar.getInstance();
+        return calendar.get(Calendar.MINUTE);
+    }
+
+    public static int getCurrentHours() {
+        Calendar calendar = Calendar.getInstance();
+        return calendar.get(Calendar.HOUR_OF_DAY);
     }
 }

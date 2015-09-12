@@ -201,6 +201,7 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:text="请输入备注"
+        android:gravity="start|top"
         android:layout_below="@+id/frag_create_rl_remark"
         android:id="@+id/frag_create_tv_remark"
         android:layout_marginLeft="16dp"

@@ -1,5 +1,7 @@
 package com.example.rth.util;
 
+import android.util.Log;
+
 import com.example.rth.data.WheelData;
 import com.example.rth.moneyrecord.R;
 
@@ -122,6 +124,26 @@ public class WheelDataUtils {
         DAY.clear();
         for(int i = 1;i <= dayNums[month-1];i++) {
             DAY.add(new WheelData(i + "号"));
+        }
+    }
+
+    /**
+     * 小时
+     */
+    public static List<WheelData> HOURS = new ArrayList<>();
+    static {
+        for (int i = 0;i < 24;i++) {
+            HOURS.add(new WheelData(i+""));
+        }
+    }
+
+    /**
+     * 分钟
+     */
+    public static List<WheelData> MINIITE = new ArrayList<>();
+    static {
+        for (int i = 0;i < 60;i++) {
+            MINIITE.add(new WheelData(i+""));
         }
     }
 }

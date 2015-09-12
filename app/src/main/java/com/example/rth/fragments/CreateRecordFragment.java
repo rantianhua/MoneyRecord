@@ -3,7 +3,10 @@ package com.example.rth.fragments;
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,7 +47,7 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
     private LinearLayout llWheel;   //滚轮选择器的容器
     private RelativeLayout rlCategory;  //类别项
     private RelativeLayout rlDate;  //日期项
-    private TextView tvMoneyLabel,tvCategory,tvGatvCategoryLabel,tvDate,tvDateLabel;  //
+    private TextView tvMoneyLabel,tvCategory,tvGatvCategoryLabel,tvDate,tvDateLabel,tvRemark;  //
     private EditText etMoney;   //输入金额
     private Button btnSave; //保存帐单
     private Button btnAgain;    //再记一笔
@@ -53,6 +56,7 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
     private ValueAnimator wheelHide; //滚轮消失的动画
     private int currentWheel = -1;   //表示当前滚轮显示的内容，0表示日期，1表示类别
     private StringBuilder builder = new StringBuilder();    //字符串拼接
+    private String remark;  //备注
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -77,7 +81,6 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
             @Override
             public void run() {
                 llWheelHeight = llWheel.getHeight();
-                Log.e("llWheel height is ",llWheelHeight + "");
             }
         });
         rlCategory = (RelativeLayout) view.findViewById(R.id.frag_create_rl_category);
@@ -88,6 +91,10 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         tvGatvCategoryLabel = (TextView) view.findViewById(R.id.frag_create_tv_category_label);
         tvDate = (TextView) view.findViewById(R.id.frag_create_tv_date);
         tvDateLabel = (TextView) view.findViewById(R.id.frag_create_tv_date_label);
+        tvRemark = (TextView) view.findViewById(R.id.frag_create_tv_remark);
+        if(remark != null) {
+            tvRemark.setText(remark);
+        }
         btnSave = (Button) view.findViewById(R.id.frag_create_btn_save);
         btnAgain = (Button) view.findViewById(R.id.frag_create_btn_again);
         wvOne.setGravity(WheelView.VERTICAL);
@@ -95,6 +102,20 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         wvThree.setGravity(WheelView.VERTICAL);
         wvFour.setGravity(WheelView.VERTICAL);
         wvFive.setGravity(WheelView.VERTICAL);
+        wvOne.setAdapter(new WheelTextAdapter(getActivity()));
+        wvTwo.setAdapter(new WheelTextAdapter(getActivity()));
+        wvFive.setAdapter(new WheelTextAdapter(getActivity()));
+        wvThree.setAdapter(new WheelTextAdapter(getActivity()));
+        wvFour.setAdapter(new WheelTextAdapter(getActivity()));
+        changeWheelData(wvTwo, WheelDataUtils.MONTH);
+        wvTwo.setSelection(Utils.getCurrentMonth());
+        WheelDataUtils.getDay(Utils.getCurrentYear(), Utils.getCurrentMonth()+1);
+        changeWheelData(wvThree, WheelDataUtils.DAY);
+        wvThree.setSelection(Utils.getCurrentDay() - 1);
+        changeWheelData(wvFour, WheelDataUtils.HOURS);
+        wvFour.setSelection(Utils.getCurrentHours());
+        showTime(null,null,null,null,null);
+        showCategoryText(0, 0);
         initAnimationSet();
         return view;
     }
@@ -104,23 +125,14 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         tvTitle.setOnClickListener(this);
         imgBack.setOnClickListener(this);
         rlCategory.setOnClickListener(this);
+        tvRemark.setOnClickListener(this);
         rlDate.setOnClickListener(this);
         wvOne.setOnEndFlingListener(this);
         wvTwo.setOnEndFlingListener(this);
         wvFive.setOnEndFlingListener(this);
         wvThree.setOnEndFlingListener(this);
         wvFour.setOnEndFlingListener(this);
-        wvOne.setAdapter(new WheelTextAdapter(getActivity()));
-        wvTwo.setAdapter(new WheelTextAdapter(getActivity()));
-        wvFive.setAdapter(new WheelTextAdapter(getActivity()));
-        wvThree.setAdapter(new WheelTextAdapter(getActivity()));
-        wvFour.setAdapter(new WheelTextAdapter(getActivity()));
-        changeWheelData(wvTwo, WheelDataUtils.MONTH);
-        wvTwo.setSelection(Utils.getCurrentMonth() - 1);
-        WheelDataUtils.getDay(Utils.getCurrentYear(),Utils.getCurrentMonth());
-        changeWheelData(wvThree, WheelDataUtils.DAY);
-        wvThree.setSelection(Utils.getCurrentDay()-1);
-        showCategoryText(0, 0);
+        wvFive.setOnEndFlingListener(this);
     }
 
     /**
@@ -139,7 +151,48 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
             builder.append(WheelDataUtils.mapSecondOut.get(mainIndex).get(subIndex).text);
         }
         tvCategory.setText(builder.toString());
-        builder.delete(0,builder.length());
+        builder.delete(0, builder.length());
+    }
+
+    /**
+     * 显示当前或选择的时间
+     * @param year
+     * @param month
+     * @param day
+     * @param hour
+     * @param minite
+     */
+    private void showTime(String year,String month,String day,String hour,String minite) {
+        if(year == null) {
+            year = Utils.getCurrentYear()+"";
+            int mon = Utils.getCurrentMonth() + 1;
+            month = mon < 10 ? "0" + mon : "" + mon;
+            int d = Utils.getCurrentDay();
+            day = d < 10 ? "0" + d : "" + d;
+            int h = Utils.getCurrentHours();
+            hour = h < 10 ? "0" + h : "" + h;
+            int min = Utils.getCurrentMinite();
+            minite = min < 10 ? "0" + min : "" + min;
+        }else {
+            year = year.substring(0,year.length()-1);
+            month = month.substring(0,month.length()-1);
+            day = day.substring(0,day.length()-1);
+            if(month.length() == 1) month = "0" + month;
+            if(day.length() == 1) day = "0" + day;
+            if(hour.length() == 1) hour = "0" + hour;
+            if(minite.length() == 1) minite = "0" + minite;
+        }
+        builder.append(year);
+        builder.append("-");
+        builder.append(month);
+        builder.append("-");
+        builder.append(day);
+        builder.append(" ");
+        builder.append(hour);
+        builder.append(":");
+        builder.append(minite);
+        tvDate.setText(builder.toString());
+        builder.delete(0, builder.length());
     }
 
     @Override
@@ -154,15 +207,28 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
                 showCategoryText(position,wvFive.getSelectedItemPosition());
             }
         }else if(v == wvTwo) {
-
-        }else if(v == wvThree) {
-
-        }else if(v == wvFour) {
+            String mon = WheelDataUtils.MONTH.get(wvTwo.getSelectedItemPosition()).text;
+            mon = mon.substring(0,mon.length()-1);
+            WheelDataUtils.getDay(Utils.getCurrentYear(), Integer.valueOf(mon));
+            int select = wvThree.getSelectedItemPosition();
+            while (select >= WheelDataUtils.DAY.size()) {
+                select--;
+            }
+            wvThree.setSelection(select);
+            changeWheelData(wvThree,WheelDataUtils.DAY);
 
         }else if(v == wvFive) {
             if(currentWheel == 1) {
                 showCategoryText(wvOne.getSelectedItemPosition(),position);
             }
+        }
+        if(currentWheel == 0) {
+            //更新日期的显示
+            showTime(WheelDataUtils.YEAR.get(wvOne.getSelectedItemPosition()).text,
+                    WheelDataUtils.MONTH.get(wvTwo.getSelectedItemPosition()).text,
+                    WheelDataUtils.DAY.get(wvThree.getSelectedItemPosition()).text,
+                    WheelDataUtils.HOURS.get(wvFour.getSelectedItemPosition()).text,
+                    WheelDataUtils.MINIITE.get(wvFive.getSelectedItemPosition()).text);
         }
     }
 
@@ -183,6 +249,9 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
             case R.id.frag_create_rl_date:
                 showDateTime();
                 break;
+            case R.id.frag_create_tv_remark:
+                getRemark();
+                break;
         }
     }
 
@@ -193,6 +262,8 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         if(llWheel.getVisibility() == View.VISIBLE) {
             if(currentWheel != 0) {
                 hideWheel(true,0);
+            }else {
+                hideWheel(false,-1);
             }
         }else {
             showWheel(0);
@@ -221,10 +292,16 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
                 btnAgain.setVisibility(View.INVISIBLE);
                 llWheel.setVisibility(View.VISIBLE);
                 if(index == 0) {
+                    //选择日期
                     wvTwo.setVisibility(View.VISIBLE);
                     wvThree.setVisibility(View.VISIBLE);
                     wvFour.setVisibility(View.VISIBLE);
+                    changeWheelData(wvOne, WheelDataUtils.YEAR);
+                    wvOne.setSelection(WheelDataUtils.YEAR.size() / 2);
+                    changeWheelData(wvFive, WheelDataUtils.MINIITE);
+                    wvFive.setSelection(Utils.getCurrentMinite());
                 }else if(index == 1) {
+                    //选择类别
                     wvTwo.setVisibility(View.GONE);
                     wvThree.setVisibility(View.GONE);
                     wvFour.setVisibility(View.GONE);
@@ -235,6 +312,8 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
                         changeWheelData(wvOne, WheelDataUtils.firstCategoryOut);
                         changeWheelData(wvFive, WheelDataUtils.mapSecondOut.get(0));
                     }
+                    wvOne.setSelection(0);
+                    wvFive.setSelection(0);
                 }
             }
 
@@ -292,7 +371,6 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
             public void onAnimationEnd(Animator animator) {
                 currentWheel = -1;
                 if (showOther) {
-                    Log.e("hideWheel","showOther");
                     showWheel(index);
                 } else {
                     llWheel.setVisibility(View.INVISIBLE);
@@ -333,6 +411,9 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
      * 修改标题
      */
     private void changeTitle() {
+        if(llWheel.getVisibility() ==View.VISIBLE) {
+            hideWheel(false, -1);
+        }
         animaTitle.start();
     }
 
@@ -427,4 +508,26 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         });
     }
 
+    /**
+     * 获取用户输入的备注
+     */
+    public void getRemark() {
+        String category = tvCategory.getText().toString();
+        String subCate = category.substring(category.indexOf(">") + 1);
+        Fragment remark = RemarkFragment.getInstance(etMoney.getText().toString(),subCate);
+        remark.setTargetFragment(this,REQUEST_REMARK);
+        getFragmentManager().beginTransaction().replace(R.id.activity_create_rl_container,remark)
+                .addToBackStack("remark").commit();
+    }
+
+    public static final int REQUEST_REMARK = 0; //获取备注的请求代码
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == REQUEST_REMARK && resultCode == Activity.RESULT_OK && data != null) {
+            remark = data.getStringExtra("remark");
+        }else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 }

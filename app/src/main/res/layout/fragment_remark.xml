@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/gray_light">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/frag_remark_rl_top"
+        android:background="@color/red">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/back_bg"
+            android:padding="13dp"
+            android:id="@+id/frag_remark_img_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/frag_remark_img_back"
+            android:text="备注信息"
+            android:textColor="@android:color/white"
+            android:textSize="20sp"/>
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:padding="12dp"
+            android:background="@drawable/ok_bg"
+            android:layout_alignParentRight="true"
+            android:id="@+id/frag_remark_img_ok"
+
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:id="@+id/frag_remark_rl_label"
+        android:layout_below="@+id/frag_remark_rl_top">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:id="@+id/frag_remark_tv_category"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:text="早无晚餐"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:id="@+id/frag_remark_tv_money"
+            android:text="金额：0.00"
+            android:textColor="@android:color/black"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_below="@+id/frag_remark_rl_label"
+        android:id="@+id/frag_remark_et_remark"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:background="@drawable/et_remark_bg"
+        android:hint="点击输入备注..."
+        android:padding="8dp"
+        android:gravity="start|top"/>
+
+</RelativeLayout>
