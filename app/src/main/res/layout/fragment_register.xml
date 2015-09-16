@@ -26,7 +26,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="32dp"
         android:layout_below="@+id/frag_login_tv_register"
         android:layout_marginLeft="32dp"
         android:layout_marginRight="32dp"
@@ -42,7 +42,7 @@
             android:background="@drawable/et_register_bg"
             android:text="username"
             android:gravity="center"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="35dp"
             android:id="@+id/frag_register_et_name"
             />
 
@@ -55,7 +55,7 @@
             android:text="password"
             android:gravity="center"
             android:layout_below="@+id/frag_register_et_name"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="35dp"
             android:id="@+id/frag_register_et_password"
             />
         
@@ -67,19 +67,24 @@
             android:layout_alignLeft="@+id/frag_register_et_name"
             android:layout_alignRight="@+id/frag_register_et_name"
             android:background="@drawable/btn_login_bg"
-            android:layout_marginTop="40dp"
-            android:text="注册"
+            android:layout_marginTop="35dp"
+            android:text="注 册"
             android:textColor="@android:color/white"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
             android:layout_below="@+id/frag_register_btn_regidter"
             android:layout_marginTop="10dp"
-            android:text="取消"
+            android:text="取 消"
+            android:gravity="center"
             android:layout_centerHorizontal="true"
-            android:textColor="#00AB6B"/>
+            android:textColor="#00AB6B"
+            android:id="@+id/frag_register_tv_back" />
 
 
     </RelativeLayout>

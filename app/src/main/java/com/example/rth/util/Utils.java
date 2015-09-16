@@ -114,14 +114,14 @@ public class Utils {
      * @return
      */
     public static Object getUserInfo(int flag,Context con) {
-        SharedPreferences sp = con.getSharedPreferences(SP_USER,0);
+        SharedPreferences sp = con.getSharedPreferences(Constants.SP_USER,0);
         Object oj = null;
         switch (flag) {
             case 0: //返回用户名
-                oj = sp.getString(USER_NAME,null);
+                oj = sp.getString(Constants.USER_NAME,null);
                 break;
             case 1:
-                oj = sp.getBoolean(USER_ON,false);
+                oj = sp.getBoolean(Constants.USER_ON,false);
                 break;
         }
         return oj;
@@ -136,28 +136,22 @@ public class Utils {
      * @param on    是否在线
      */
     public static void updateUserInfo(Context con,int id,String name,String picPhoto,String pass,boolean on) {
-        SharedPreferences sp = con.getSharedPreferences(SP_USER, 0);
+        SharedPreferences sp = con.getSharedPreferences(Constants.SP_USER, 0);
         SharedPreferences.Editor edit = sp.edit();
         if(id != -1) {
-            edit.putInt(USER_ID, id);
+            edit.putInt(Constants.USER_ID, id);
         }
         if(name != null) {
-            edit.putString(USER_NAME, name);
+            edit.putString(Constants.USER_NAME, name);
         }
         if(picPhoto != null) {
-            edit.putString(USER_PIC,picPhoto);
+            edit.putString(Constants.USER_PIC,picPhoto);
         }
         if(pass != null) {
-            edit.putString(USER_PASS,pass);
+            edit.putString(Constants.USER_PASS,pass);
         }
-        edit.putBoolean(USER_ON,on);
+        edit.putBoolean(Constants.USER_ON,on);
         edit.apply();
     }
 
-    public static final String SP_USER = "user";    //存储用户基本信息的文件名
-    public static final String USER_NAME = "user_name"; //用户名的键值
-    public static final String USER_ON = "user_on"; //用户是否已登录的键值
-    public static final String USER_ID = "user_id"; //用户id的键值
-    public static final String USER_PIC = "user_pic"; //用户头像的键值
-    public static final String USER_PASS = "user_pass"; //用户密码的键值
 }
