@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,6 +25,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.rth.BaseHomeFragment;
 import com.example.rth.adapter.WheelTextAdapter;
 import com.example.rth.data.MoneyRecord;
@@ -73,6 +79,9 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
     private int colorRed,colorGreen;
     private boolean haveLimitInputSize = false; //标识有没有限制etMoney的长度
 
+    private ProgressDialog pd;  //等待提示
+    private RequestQueue requestQueue;  //Volley请求队列
+
     //为EditText设置监听
     private final TextWatcher moneyWatcher = new TextWatcher() {
         @Override
@@ -101,6 +110,8 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         WheelDataUtils.getYears();
         colorGreen = getResources().getColor(R.color.green);
         colorRed = getResources().getColor(R.color.red);
+        requestQueue = Volley.newRequestQueue(getActivity());
+        pd = new ProgressDialog(getActivity());
     }
 
     @Override
@@ -199,14 +210,18 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
      */
     private void showCategoryText(int mainIndex,int subIndex) {
         if(action == ACTION_IN) {
-            builder.append(WheelDataUtils.firstCategoryIn.get(mainIndex).text);
+            mainCategory = WheelDataUtils.firstCategoryIn.get(mainIndex).text;
+            subCategory = WheelDataUtils.mapSecondIn.get(mainIndex).get(subIndex).text;
+            builder.append(mainCategory);
             builder.append(">");
-            builder.append(WheelDataUtils.mapSecondIn.get(mainIndex).get(subIndex).text);
+            builder.append(subCategory);
             iconId = WheelDataUtils.mapSecondIn.get(mainIndex).get(subIndex).imgId;
         }else if(action == ACTION_OUT) {
-            builder.append(WheelDataUtils.firstCategoryOut.get(mainIndex).text);
+            mainCategory = WheelDataUtils.firstCategoryOut.get(mainIndex).text;
+            subCategory = WheelDataUtils.mapSecondOut.get(mainIndex).get(subIndex).text;
+            builder.append(mainCategory);
             builder.append(">");
-            builder.append(WheelDataUtils.mapSecondOut.get(mainIndex).get(subIndex).text);
+            builder.append(subCategory);
             iconId = WheelDataUtils.mapSecondOut.get(mainIndex).get(subIndex).imgId;
         }
         tvCategory.setText(builder.toString());
@@ -224,22 +239,31 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
     private void showTime(String year,String month,String day,String hour,String minite) {
         if(year == null) {
             year = Utils.getCurrentYear()+"";
+            this.year = year;
             int mon = Utils.getCurrentMonth() + 1;
+            this.month = mon+"";
             month = mon < 10 ? "0" + mon : "" + mon;
             int d = Utils.getCurrentDay();
+            this.date = day+"";
             day = d < 10 ? "0" + d : "" + d;
             int h = Utils.getCurrentHours();
             hour = h < 10 ? "0" + h : "" + h;
             int min = Utils.getCurrentMinite();
             minite = min < 10 ? "0" + min : "" + min;
+            this.time = hour + ":" + minite;
         }else {
             year = year.substring(0,year.length()-1);
+            this.year = year;
             month = month.substring(0,month.length()-1);
+            this.month = month;
             day = day.substring(0,day.length()-1);
+            this.date = day;
             if(month.length() == 1) month = "0" + month;
             if(day.length() == 1) day = "0" + day;
             if(hour.length() == 1) hour = "0" + hour;
             if(minite.length() == 1) minite = "0" + minite;
+            this.time = hour + ":" + minite;
+
         }
         builder.append(year);
         builder.append("-");
@@ -347,9 +371,7 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         String moneyIn = null;
         String moneyOut = null;
         if(action == ACTION_IN) {
-            builder.append("+");
-            builder.append(money);
-            moneyIn = builder.toString();
+            moneyIn = money;
         }else if(action == ACTION_OUT){
             builder.append("-");
             builder.append(money);
@@ -359,8 +381,10 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         cateGory = tvCategory.getText().toString();
         dateTime = tvDate.getText().toString();
         remark = tvRemark.getText().toString();
-        MoneyRecord moneyRecord = new MoneyRecord(cateGory.substring(cateGory.indexOf(">")+1),
-                dateTime,moneyIn,moneyOut,remark,iconId,MoneyRecord.TYPE_NOW_RECORD);
+        MoneyRecord moneyRecord = new MoneyRecord(mainCategory,subCategory,year,month,date,
+                time,moneyOut,moneyIn,remark,iconId+"",MoneyRecord.TYPE_NOW_RECORD);
+        //上传数据
+        StringRequest stringRequest = new StringRequest();
         Utils.RECORDS.add(moneyRecord);
         cateGory = null;
         remark = null;

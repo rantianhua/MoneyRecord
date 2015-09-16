@@ -1,11 +1,14 @@
 package com.example.rth.fragments;
 
 import android.app.Activity;
+import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AlertDialog;
 import android.text.TextUtils;
@@ -18,14 +21,26 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.rth.BaseHomeFragment;
+import com.example.rth.moneyrecord.MainActivity;
 import com.example.rth.moneyrecord.R;
 import com.example.rth.util.Constants;
 import com.example.rth.util.ImageUtil;
 import com.example.rth.util.Utils;
 import com.example.rth.widgets.CircleImageDrawable;
 
+import org.json.JSONObject;
+
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by rth on 15-9-16.
@@ -41,6 +56,16 @@ public class RegisterFragment extends BaseHomeFragment {
     private String name,pass,photoPath; //名称、密码、保存图片的绝对路径
     private int imgW,imgH;  //图片控件的长度和宽度
     private boolean galleryPic = false; //标识图片是否来自相册
+
+    private ProgressDialog pd;  //等待信息
+    private RequestQueue requestQueue;  //Volley的请求队列
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        pd = new ProgressDialog(getActivity());
+        requestQueue = Volley.newRequestQueue(getActivity());
+    }
 
     @Override
     public View initView(LayoutInflater inflater, ViewGroup container) {
@@ -108,6 +133,69 @@ public class RegisterFragment extends BaseHomeFragment {
             Utils.showToast("请填写密码", getActivity());
             return;
         }
+        if(TextUtils.isEmpty(photoPath)) {
+            Utils.showToast("请设置头像", getActivity());
+            return;
+        }
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.REGISTER_API, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                if(pd.isShowing()) {
+                    pd.dismiss();
+                }
+                if(s != null) {
+                    try {
+                        JSONObject oj = new JSONObject(s);
+                        String msg = oj.getString("msg");
+                        if(msg.equals("ok")) {
+                            //注册成功
+                            int id = oj.getInt("id");
+                            registerFinish(id);
+                        }else {
+                            //注册失败
+                            Utils.showToast("注册失败",getActivity());
+                        }
+                    }catch (Exception e) {
+                        Log.e("register","error in onResponse",e);
+                    }
+                }else {
+                    Utils.showToast("注册失败,请联系后台人员",getActivity());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                if(pd.isShowing()) {
+                    pd.dismiss();
+                }
+                Log.e("onErrorResponse",volleyError.getMessage());
+                Utils.showToast("出错了，请检查网络",getActivity());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+                params.put("user_name",name);
+                params.put("pass",pass);
+                params.put("pic_url",photoPath);
+                return params;
+            }
+        };
+        pd.setMessage("正在注册...");
+        pd.show();
+        requestQueue.add(stringRequest);
+    }
+
+    /**
+     * 注册完成
+     * @param id 注册成功后的id
+     */
+    private void registerFinish(int id) {
+        //保存用户信息
+        Utils.updateUserInfo(getActivity(),id,name,photoPath,pass,true);
+        //进入主页面
+        startActivity(new Intent(getActivity(), MainActivity.class));
+        getActivity().finish();
     }
 
     /**Constants.
