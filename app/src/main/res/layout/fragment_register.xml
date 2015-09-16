@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@mipmap/start_bg">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+        android:id="@+id/frag_register_img_photo"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/camera"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:text="设置头像"
+        android:layout_below="@+id/frag_register_img_photo"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/frag_login_tv_register"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="16dp"
+        android:layout_below="@+id/frag_login_tv_register"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:background="@drawable/rl_register_bg"
+        android:layout_marginTop="16dp"
+        >
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@drawable/et_register_bg"
+            android:text="username"
+            android:gravity="center"
+            android:layout_marginTop="40dp"
+            android:id="@+id/frag_register_et_name"
+            />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="32dp"
+            android:layout_marginRight="32dp"
+            android:background="@drawable/et_register_bg"
+            android:text="password"
+            android:gravity="center"
+            android:layout_below="@+id/frag_register_et_name"
+            android:layout_marginTop="40dp"
+            android:id="@+id/frag_register_et_password"
+            />
+        
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:id="@+id/frag_register_btn_regidter"
+            android:layout_below="@+id/frag_register_et_password"
+            android:layout_alignLeft="@+id/frag_register_et_name"
+            android:layout_alignRight="@+id/frag_register_et_name"
+            android:background="@drawable/btn_login_bg"
+            android:layout_marginTop="40dp"
+            android:text="注册"
+            android:textColor="@android:color/white"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_below="@+id/frag_register_btn_regidter"
+            android:layout_marginTop="10dp"
+            android:text="取消"
+            android:layout_centerHorizontal="true"
+            android:textColor="#00AB6B"/>
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

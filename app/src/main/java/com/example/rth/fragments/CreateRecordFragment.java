@@ -66,6 +66,9 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
     private String dateTime;    //时间
     private String cateGory;    //类别
     private int iconId; //图片id
+    private String mainCategory;    //主分类
+    private String subCategory; //子分类
+    private String year,month,date,time;    //年份、月份、时间、日期
 
     private int colorRed,colorGreen;
     private boolean haveLimitInputSize = false; //标识有没有限制etMoney的长度

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@mipmap/start_bg"
+    >
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="centerCrop"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:id="@+id/frag_login_logo"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frag_login_logo"
+        android:layout_marginTop="16dp"
+        android:text="钱先生"
+        android:textColor="@android:color/white"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/frag_login_tv_name"/>
+
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_below="@+id/frag_login_tv_name"
+        android:layout_marginTop="60dp"
+        android:id="@+id/frag_login_et_name"
+        android:hint="username"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/white"
+        android:layout_below="@+id/frag_login_et_name"
+        android:layout_alignLeft="@+id/frag_login_et_name"
+        android:layout_alignRight="@+id/frag_login_et_name"
+        />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/frag_login_et_name"
+        android:layout_alignRight="@+id/frag_login_et_name"
+        android:layout_below="@+id/frag_login_et_name"
+        android:layout_marginTop="50dp"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:textColorHint="@android:color/white"
+        android:textColor="@android:color/white"
+        android:id="@+id/frag_login_et_password"
+        android:hint="password"
+        android:inputType="textPassword"
+        android:background="@android:color/transparent"
+        />
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@android:color/white"
+        android:layout_below="@+id/frag_login_et_password"
+        android:layout_alignLeft="@+id/frag_login_et_name"
+        android:layout_alignRight="@+id/frag_login_et_name"
+        />
+
+    <Button
+        android:layout_width="160dp"
+        android:layout_height="45dp"
+        android:background="@drawable/btn_login_bg"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/frag_login_et_password"
+        android:layout_marginTop="60dp"
+        android:textColor="@android:color/white"
+        android:id="@+id/frag_login_btn_login"
+        android:text="登录"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:background="@android:color/transparent"
+        android:textColor="#00AB6B"
+        android:text="注册"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/frag_login_btn_login"
+        android:layout_marginTop="16dp"
+        android:id="@+id/frag_login_tv_register"
+        />
+
+</RelativeLayout>
