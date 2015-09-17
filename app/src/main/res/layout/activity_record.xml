@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/activity_record_top"
+        android:background="@color/green">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:src="@drawable/back_bg"
+            android:layout_centerVertical="true"
+            android:padding="12dp"
+            android:id="@+id/activity_record_img_back"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="5dp"
+            android:text="新增"
+            android:gravity="center"
+            android:id="@+id/activity_record_tv_title"
+            android:layout_centerVertical="true"
+            android:textSize="20sp"
+            android:textColor="@android:color/white"
+            android:layout_toRightOf="@+id/activity_record_img_back"
+            />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:id="@+id/activity_record_rl_time"
+        android:background="@color/green"
+        android:layout_below="@+id/activity_record_top">
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/activity_img_left"
+            android:src="@drawable/img_left_bg"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
+            android:layout_marginLeft="16dp"/>
+
+
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:id="@+id/activity_img_right"
+            android:src="@drawable/img_right_bg"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:padding="10dp"
+            android:layout_marginRight="16dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textColor="@android:color/white"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/activity_record_tv_time"
+            android:text="很多是的和"/>
+
+
+    </RelativeLayout>
+
+    <ExpandableListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/activity_record_rl_time"
+        android:id="@+id/activty_record_exl">
+
+    </ExpandableListView>
+
+</RelativeLayout>

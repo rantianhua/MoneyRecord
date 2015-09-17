@@ -31,7 +31,6 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:textSize="18sp"
-            android:text="就是地方"
             android:textColor="@android:color/black"
             android:id="@+id/record_item_tv_title"
             />
@@ -40,9 +39,9 @@
             android:layout_width="wrap_content"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:text="2015年9月"
             android:textSize="15sp"
             android:id="@+id/record_item_tv_date"
+            android:singleLine="true"
             />
 
         <TextView
@@ -52,6 +51,7 @@
             android:textSize="15sp"
             android:id="@+id/record_item_tv_remark"
             android:visibility="gone"
+            android:singleLine="true"
             />
 
     </LinearLayout>
@@ -88,6 +88,7 @@
             android:id="@+id/record_item_tv_money_in"
             android:textColor="@color/red"
             android:layout_gravity="right"
+            android:singleLine="true"
             />
 
         <TextView
@@ -101,6 +102,7 @@
             android:id="@+id/record_item_tv_money_out"
             android:layout_gravity="right"
             android:textColor="@color/green"
+            android:singleLine="true"
             />
 
     </LinearLayout>

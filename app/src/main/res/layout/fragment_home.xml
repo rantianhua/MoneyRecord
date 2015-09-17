@@ -47,7 +47,7 @@
                     android:textColor="@android:color/white"
                     android:text="总收入：0.00"
                     android:gravity="center"
-                    />
+                    android:id="@+id/frag_home_tv_money_in" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -57,7 +57,7 @@
                     android:textColor="@android:color/white"
                     android:text="总支出：0.00"
                     android:gravity="center"
-                    />
+                    android:id="@+id/frag_home_tv_money_out" />
 
             </LinearLayout>
 

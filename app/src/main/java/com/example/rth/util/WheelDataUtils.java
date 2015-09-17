@@ -33,7 +33,7 @@ public class WheelDataUtils {
         subInSecond.add(new WheelData("中奖收入", R.mipmap.zhongjiang));
         subInSecond.add(new WheelData("意外收入", R.mipmap.jianqian));
         subInSecond.add(new WheelData("爸妈给钱", R.mipmap.shenshou));
-        mapSecondIn.put(0, subInSecond);
+        mapSecondIn.put(1, subInSecond);
     }
 
     //支出的一级目录
@@ -114,7 +114,7 @@ public class WheelDataUtils {
     }
 
     //日
-    private static final int[] dayNums = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+    public static final int[] dayNums = { 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     public static List<WheelData> DAY = new ArrayList<>();
     public static void getDay(int year,int month) {
         if(year % 4 == 0||year%400==0) {

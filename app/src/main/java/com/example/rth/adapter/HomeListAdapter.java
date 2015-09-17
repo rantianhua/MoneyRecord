@@ -2,6 +2,7 @@ package com.example.rth.adapter;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -74,21 +75,22 @@ public class HomeListAdapter extends BaseAdapter {
             holder = (ViewHolder) view.getTag();
         }
         MoneyRecord record = dataSets.get(i);
-        holder.tvTitle.setText(record.title);
+        holder.tvTitle.setText(record.subTitle);
+        holder.img.setImageResource(Integer.valueOf(record.picId));
         switch (record.type) {
             case MoneyRecord.TYPE_NOW_RECORD:
                 holder.tvMoneyIn.setVisibility(View.GONE);
-                builder.append(record.date);
+                builder.append(record.showDateTime);
                 if(record.remark != null) {
                     builder.append(" ");
                     builder.append(record.remark);
                 }
                 holder.tvDate.setText(builder.toString());
                 builder.delete(0, builder.length());
-                if(record.moneyIn != null) {
+                if(!TextUtils.isEmpty(record.moneyIn)) {
                     holder.tvMoneyOut.setTextColor(resources.getColor(R.color.red));
                     holder.tvMoneyOut.setText(record.moneyIn);
-                }else if(record.moneyOut != null) {
+                }else if(!TextUtils.isEmpty(record.moneyOut)) {
                     holder.tvMoneyOut.setText(record.moneyOut);
                 }
                 break;
@@ -109,7 +111,7 @@ public class HomeListAdapter extends BaseAdapter {
                 }
                 break;
             case MoneyRecord.TYPE_WEEK_OR_MONTH:
-                holder.tvDate.setText(record.date);
+                holder.tvDate.setText(record.showDateTime);
                 holder.tvMoneyIn.setText(record.moneyIn);
                 holder.tvMoneyOut.setText(record.moneyOut);
                 break;

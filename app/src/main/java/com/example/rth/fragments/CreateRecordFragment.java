@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -25,9 +26,11 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
+import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.rth.BaseHomeFragment;
@@ -35,12 +38,17 @@ import com.example.rth.adapter.WheelTextAdapter;
 import com.example.rth.data.MoneyRecord;
 import com.example.rth.data.WheelData;
 import com.example.rth.moneyrecord.R;
+import com.example.rth.util.Constants;
 import com.example.rth.util.Utils;
 import com.example.rth.util.WheelDataUtils;
 import com.example.rth.widgets.wheel.TosGallery;
 import com.example.rth.widgets.wheel.WheelView;
 
+import org.json.JSONObject;
+
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by rth on 15-9-11.
@@ -81,6 +89,7 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
 
     private ProgressDialog pd;  //等待提示
     private RequestQueue requestQueue;  //Volley请求队列
+    private MoneyRecord moneyRecord;    //一条已经生成的账单
 
     //为EditText设置监听
     private final TextWatcher moneyWatcher = new TextWatcher() {
@@ -112,6 +121,18 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         colorRed = getResources().getColor(R.color.red);
         requestQueue = Volley.newRequestQueue(getActivity());
         pd = new ProgressDialog(getActivity());
+        try {
+            moneyRecord = getArguments().getParcelable("record");
+            if(!TextUtils.isEmpty(moneyRecord.moneyIn)) {
+                action = ACTION_IN;
+            }else {
+                action = ACTION_OUT;
+            }
+            iconId = Integer.valueOf(moneyRecord.picId);
+        }catch (Exception e) {
+            Log.e("onCreate","error in getRecord",e);
+            moneyRecord = null;
+        }
     }
 
     @Override
@@ -137,6 +158,13 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         rlDate = (RelativeLayout) view.findViewById(R.id.frag_create_rl_date);
         tvMoneyLabel = (TextView) view.findViewById(R.id.frag_create_tv_money);
         etMoney = (EditText) view.findViewById(R.id.frag_create_et_money);
+        if(moneyRecord != null) {
+            if(action == ACTION_IN) {
+                etMoney.setText(moneyRecord.moneyIn);
+            }else {
+                etMoney.setText(moneyRecord.moneyOut);
+            }
+        }
         etMoney.addTextChangedListener(moneyWatcher);
         setEtMoneyColor();
         tvCategory = (TextView) view.findViewById(R.id.frag_create_tv_category);
@@ -144,11 +172,17 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         tvDate = (TextView) view.findViewById(R.id.frag_create_tv_date);
         tvDateLabel = (TextView) view.findViewById(R.id.frag_create_tv_date_label);
         tvRemark = (TextView) view.findViewById(R.id.frag_create_tv_remark);
+        if(moneyRecord != null) {
+            remark = moneyRecord.remark;
+        }
         if(!TextUtils.isEmpty(remark)) {
             tvRemark.setText(remark);
         }
         btnSave = (Button) view.findViewById(R.id.frag_create_btn_save);
         btnAgain = (Button) view.findViewById(R.id.frag_create_btn_again);
+        if(moneyRecord != null) {
+            btnAgain.setText("删除");
+        }
         wvOne.setGravity(WheelView.VERTICAL);
         wvTwo.setGravity(WheelView.VERTICAL);
         wvThree.setGravity(WheelView.VERTICAL);
@@ -166,10 +200,20 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         wvThree.setSelection(Utils.getCurrentDay() - 1);
         changeWheelData(wvFour, WheelDataUtils.HOURS);
         wvFour.setSelection(Utils.getCurrentHours());
-        if(!TextUtils.isEmpty(dateTime)) {
-            tvDate.setText(dateTime);
+        if(moneyRecord != null) {
+            String[] times = moneyRecord.time.split(":");
+            showTime(moneyRecord.year+"年", moneyRecord.month+"月", moneyRecord.date+"号", times[0], times[1]);
         }else {
-            showTime(null,null,null,null,null);
+            if(!TextUtils.isEmpty(dateTime)) {
+                tvDate.setText(dateTime);
+            }else {
+                showTime(null,null,null,null,null);
+            }
+        }
+        if(moneyRecord != null) {
+            mainCategory = moneyRecord.mainTitle;
+            subCategory = moneyRecord.subTitle;
+            cateGory = mainCategory+">"+subCategory;
         }
         if(!TextUtils.isEmpty(cateGory)) {
             tvCategory.setText(cateGory);
@@ -190,11 +234,15 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
 
     @Override
     protected void initEvent(View view) {
-        tvTitle.setOnClickListener(this);
         imgBack.setOnClickListener(this);
         rlCategory.setOnClickListener(this);
         tvRemark.setOnClickListener(this);
-        rlDate.setOnClickListener(this);
+        btnSave.setOnClickListener(this);
+        btnAgain.setOnClickListener(this);
+        if(moneyRecord == null) {
+            tvTitle.setOnClickListener(this);
+            rlDate.setOnClickListener(this);
+        }
         wvOne.setOnEndFlingListener(this);
         wvTwo.setOnEndFlingListener(this);
         wvFive.setOnEndFlingListener(this);
@@ -210,6 +258,10 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
      */
     private void showCategoryText(int mainIndex,int subIndex) {
         if(action == ACTION_IN) {
+            if(mainIndex >= WheelDataUtils.firstCategoryIn.size() || mainIndex >= WheelDataUtils.mapSecondIn.size()
+                    || subIndex >= WheelDataUtils.mapSecondIn.get(mainIndex).size()) {
+                return;
+            }
             mainCategory = WheelDataUtils.firstCategoryIn.get(mainIndex).text;
             subCategory = WheelDataUtils.mapSecondIn.get(mainIndex).get(subIndex).text;
             builder.append(mainCategory);
@@ -217,6 +269,10 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
             builder.append(subCategory);
             iconId = WheelDataUtils.mapSecondIn.get(mainIndex).get(subIndex).imgId;
         }else if(action == ACTION_OUT) {
+            if(mainIndex >= WheelDataUtils.firstCategoryOut.size() || mainIndex >= WheelDataUtils.mapSecondOut.size()
+                    || subIndex >= WheelDataUtils.mapSecondOut.get(mainIndex).size()) {
+                return;
+            }
             mainCategory = WheelDataUtils.firstCategoryOut.get(mainIndex).text;
             subCategory = WheelDataUtils.mapSecondOut.get(mainIndex).get(subIndex).text;
             builder.append(mainCategory);
@@ -244,7 +300,7 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
             this.month = mon+"";
             month = mon < 10 ? "0" + mon : "" + mon;
             int d = Utils.getCurrentDay();
-            this.date = day+"";
+            this.date = d+"";
             day = d < 10 ? "0" + d : "" + d;
             int h = Utils.getCurrentHours();
             hour = h < 10 ? "0" + h : "" + h;
@@ -336,14 +392,51 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
                 getRemark();
                 break;
             case R.id.frag_create_btn_save:
-                saveRecord();
-                dismiss();
+                saveRecord(true);
                 break;
             case R.id.frag_create_btn_again:
-                saveRecord();
-                resetInput();
+                String text = btnAgain.getText().toString();
+                if(text.equals("删除")) {
+                    //删除账单
+                    deleteRecord();
+                }else {
+                    //再记一笔
+                    saveRecord(false);
+                    resetInput();
+                }
                 break;
         }
+    }
+
+    /**
+     * 删除账单
+     */
+    private void deleteRecord() {
+        StringRequest delet = new StringRequest(Request.Method.POST, Constants.UPDATE_API, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                if(s != null && s.equals("ok")) {
+                    Utils.showToast("操作成功",getActivity());
+                    resetInput();
+                }else {
+                    Utils.showToast("操作失败",getActivity());
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                Utils.showToast("出错了，请检查网络",getActivity());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> par = new HashMap<>();
+                par.put("action",0+"");
+                par.put("id",moneyRecord.recordId+"");
+                return par;
+            }
+        };
+        requestQueue.add(delet);
     }
 
     /**
@@ -351,7 +444,7 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
      */
     private void resetInput() {
         showTime(null, null, null, null, null);
-        tvRemark.setText("请填写备注信息");
+        tvRemark.setHint("请填写备注信息");
     }
 
     /**
@@ -365,15 +458,22 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
 
     /**
      * 保存该账单
+     * @param showPd 标识是否显示progressdialog
      */
-    private void saveRecord() {
+    private void saveRecord(boolean showPd) {
         String money = etMoney.getText().toString();
-        String moneyIn = null;
-        String moneyOut = null;
+        if(TextUtils.isEmpty(money)) {
+            Utils.showToast("请填写金额",getActivity());
+            return;
+        }
+        String moneyIn = "";
+        String moneyOut = "";
         if(action == ACTION_IN) {
             moneyIn = money;
         }else if(action == ACTION_OUT){
-            builder.append("-");
+            if(!money.contains("-")) {
+                builder.append("-");
+            }
             builder.append(money);
             moneyOut = builder.toString();
         }
@@ -381,14 +481,109 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         cateGory = tvCategory.getText().toString();
         dateTime = tvDate.getText().toString();
         remark = tvRemark.getText().toString();
-        MoneyRecord moneyRecord = new MoneyRecord(mainCategory,subCategory,year,month,date,
+        final Map<String,String> params = new HashMap<>();
+        int uid = (int)Utils.getUserInfo(2,getActivity());
+        String url = null;
+        if(moneyRecord != null) {
+            params.put("id",moneyRecord.recordId+"");
+            params.put("action",1+"");
+            url = Constants.UPDATE_API;
+        }else {
+            url = Constants.SAVERECORD_API;
+        }
+        params.put("uid", uid + "");
+        params.put("main_title",mainCategory);
+        params.put("sub_title",subCategory);
+        params.put("icon_id",iconId + "");
+        params.put("money",TextUtils.isEmpty(moneyIn) ? moneyOut : moneyIn);
+        params.put("remark",remark);
+        params.put("year",year);
+        params.put("month",month);
+        params.put("date",date);
+        params.put("time",time);
+        if(moneyRecord != null) {
+            moneyRecord.moneyIn = moneyIn;
+            moneyRecord.moneyOut = moneyOut;
+            moneyRecord.mainTitle = mainCategory;
+            moneyRecord.subTitle = subCategory;
+            moneyRecord.remark = remark;
+            moneyRecord.picId = iconId + "";
+        }
+        final MoneyRecord mr = new MoneyRecord(mainCategory,subCategory,year,month,date,
                 time,moneyOut,moneyIn,remark,iconId+"",MoneyRecord.TYPE_NOW_RECORD);
         //上传数据
-        StringRequest stringRequest = new StringRequest();
-        Utils.RECORDS.add(moneyRecord);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST,url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String s) {
+                        saveResponse(s,mr);
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                //出错
+                if(pd.isShowing()) {
+                    pd.dismiss();
+                }
+                Log.e("onErrorResponse",volleyError.getMessage());
+                Utils.showToast("出错了，请检查网络",getActivity());
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Log.e("money is",params.get("money"));
+                return params;
+            }
+        };
+        if(showPd) {
+            pd.setMessage("正在保存...");
+            pd.show();
+        }
+        requestQueue.add(stringRequest);
         cateGory = null;
         remark = null;
         dateTime = null;
+    }
+
+    /**
+     * 保存账单处理后台的返回消息
+     * @param s
+     * @param mr 要保存的账单
+     */
+    private void saveResponse(String s,MoneyRecord mr) {
+        if(pd.isShowing()) {
+            pd.dismiss();
+        }
+        if(this.moneyRecord != null) {
+            if(s != null && s.equals("ok")) {
+                Utils.showToast("操作成功",getActivity());
+            }else {
+                if(s != null) {
+                    Log.e("fai; data",s);
+                }
+                Utils.showToast("操作失败",getActivity());
+            }
+        }else {
+            if(s != null) {
+                try {
+                    JSONObject oj = new JSONObject(s);
+                    String msg = oj.getString("msg");
+                    if(msg.equals("ok")) {
+                        //保存成功
+                        int itemId = oj.getInt("item_id");
+                        mr.recordId = itemId;
+                        Utils.showToast("保存成功",getActivity());
+                        mr.setShowDateTime(year+"年"+month+"月"+date+"号");
+                        Utils.RECORDS.add(0, mr);
+                        dismiss();
+                    }
+                }catch (Exception e) {
+                    Log.e("saveResponse","error in onResponse",e);
+                }
+            }else {
+                Utils.showToast("保存失败", getActivity());
+            }
+        }
     }
 
     /**
@@ -680,4 +875,18 @@ public class CreateRecordFragment extends BaseHomeFragment implements TosGallery
         }
     }
 
+    /**
+     * 获得CreateRecordFragment实例
+     * @param record
+     * @return
+     */
+    public static CreateRecordFragment getInstance(MoneyRecord record) {
+        CreateRecordFragment fragment = new CreateRecordFragment();
+        if(record != null) {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable("record",record);
+            fragment.setArguments(bundle);
+        }
+        return fragment;
+    }
 }

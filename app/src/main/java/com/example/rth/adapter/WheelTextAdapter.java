@@ -24,7 +24,6 @@ import java.util.List;
 
 public class WheelTextAdapter extends BaseAdapter {
     List<WheelData> mData = null;
-    int mWidth = ViewGroup.LayoutParams.MATCH_PARENT;
     Context mContext = null;
 
     public WheelTextAdapter(Context context) {
@@ -54,6 +53,7 @@ public class WheelTextAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder holder = null;
+        if(position >= mData.size()) return null;
         WheelData data = mData.get(position);
         if (null == convertView) {
             holder = new ViewHolder();

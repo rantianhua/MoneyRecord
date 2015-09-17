@@ -2,6 +2,7 @@ package com.example.rth.util;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Parcel;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.widget.EditText;
@@ -9,6 +10,9 @@ import android.widget.Toast;
 
 import com.example.rth.data.MoneyRecord;
 import com.example.rth.data.WheelData;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -80,6 +84,15 @@ public class Utils {
     }
 
     /**
+     * 获取当前是周几
+     * @return
+     */
+    public static int getCurrentWeekDay() {
+        Calendar calendar = Calendar.getInstance();
+        return calendar.get(Calendar.DAY_OF_WEEK_IN_MONTH);
+    }
+
+    /**
      * 将String形式的日期转换为timestamp
      * @param date
      * @return
@@ -111,6 +124,7 @@ public class Utils {
      * 得到用户基本信息
      * @param flag  0表示返回用户名
      *              1表示返回用户是否已经登录
+     *              2返回用户id
      * @return
      */
     public static Object getUserInfo(int flag,Context con) {
@@ -122,6 +136,9 @@ public class Utils {
                 break;
             case 1:
                 oj = sp.getBoolean(Constants.USER_ON,false);
+                break;
+            case 2:
+                oj = sp.getInt(Constants.USER_ID,0);
                 break;
         }
         return oj;
@@ -154,4 +171,34 @@ public class Utils {
         edit.apply();
     }
 
+    /**
+     * 从json数组中获取账单
+     * @param json  //json数组的字符串格式
+     * @return
+     */
+    public static List<MoneyRecord> getRecordsFromJson(String json) {
+        List<MoneyRecord> records = new ArrayList<>();
+        try {
+            JSONArray jsonArray = new JSONArray(json);
+            for (int i = 0;i < jsonArray.length();i++) {
+                JSONObject object = jsonArray.getJSONObject(i);
+                String money = object.getString("_money");
+                String moneyIn = "0.00";
+                String moneyOut = "0.00";
+                if(Float.valueOf(money) > 0) {
+                    moneyIn = money;
+                }else {
+                    moneyOut = money;
+                }
+                MoneyRecord record = new MoneyRecord(object.getString("_main_title"),object.getString("_sub_title"),
+                        object.getString("_year"),object.getString("_month"),object.getString("_date"),
+                        object.getString("_time"),moneyOut,moneyIn,object.getString("_remark"),
+                        object.getString("_icon_id"),MoneyRecord.TYPE_RECORD_LIST);
+                records.add(record);
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+        return records;
+    }
 }

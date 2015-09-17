@@ -18,6 +18,7 @@ public class MoneyRecord implements Parcelable{
     public String moneyIn;  //收入
     public String remark;   //备注
     public String picId;   //图片id
+    public String showDateTime; //供显示的具体时间
     public int type;    //账单类型
     public int recordId;    //账单id
 
@@ -34,6 +35,7 @@ public class MoneyRecord implements Parcelable{
         this.remark = remark;
         this.picId = picId;
         this.type = type;
+        this.showDateTime = year + "-" + month + "-" +date + " " + time;
     }
 
     public MoneyRecord(Parcel parcel) {
@@ -47,6 +49,7 @@ public class MoneyRecord implements Parcelable{
         moneyIn = parcel.readString();
         remark = parcel.readString();
         picId = parcel.readString();
+        showDateTime = parcel.readString();
         type = parcel.readInt();
         recordId = parcel.readInt();
     }
@@ -80,8 +83,13 @@ public class MoneyRecord implements Parcelable{
         parcel.writeString(this.moneyIn);
         parcel.writeString(this.remark);
         parcel.writeString(this.picId);
+        parcel.writeString(showDateTime);
         parcel.writeInt(this.type);
         parcel.writeInt(this.recordId);
+    }
+
+    public void setShowDateTime(String showDateTime) {
+        this.showDateTime = showDateTime;
     }
 
     public static final int TYPE_WEEK_OR_MONTH = 0; //显示周或月的记录

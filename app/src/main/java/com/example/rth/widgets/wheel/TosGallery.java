@@ -2507,7 +2507,7 @@ public class TosGallery extends TosAbsSpinner implements GestureDetector.OnGestu
     /**
      * Indicate the gallery scroll cycle or not.
      */
-    private boolean mIsScrollCycle = true;
+    private boolean mIsScrollCycle = false;
 
     /**
      * The temporary member for mIsScrollCycle

@@ -113,7 +113,6 @@
             android:layout_height="40dp"
             android:gravity="center_vertical|end"
             android:textSize="18sp"
-            android:text="但是的开始>就发动机"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
             android:id="@+id/frag_create_tv_category"/>
@@ -201,7 +200,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:text="请输入备注"
+        android:hint="请输入备注"
         android:gravity="start|top"
         android:layout_below="@+id/frag_create_rl_remark"
         android:id="@+id/frag_create_tv_remark"

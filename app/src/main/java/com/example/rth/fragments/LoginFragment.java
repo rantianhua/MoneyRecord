@@ -4,8 +4,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +21,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.rth.BaseHomeFragment;
 import com.example.rth.moneyrecord.MainActivity;
 import com.example.rth.moneyrecord.R;
+import com.example.rth.util.Constants;
 import com.example.rth.util.Utils;
 
 import org.json.JSONObject;
@@ -103,19 +102,19 @@ public class LoginFragment extends BaseHomeFragment {
             return;
         }
         //开始登录
-        String url = "http://1.moneyrecord.sinaapp.com/api/login.php";
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, response, new Response.ErrorListener() {
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Constants.LOGIN_API, response, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError volleyError) {
                 if(pd.isShowing()) {
                     pd.dismiss();
                 }
-                Utils.showToast("登录失败，请检查网络",getActivity());
+                Utils.showToast("出错了，请检查网络",getActivity());
             }
         }){
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String,String> maps = new HashMap<>();
+                maps.put("id",(int)Utils.getUserInfo(2,getActivity())+"");
                 maps.put("user_name",name);
                 maps.put("pass",pass);
                 return maps;
@@ -141,8 +140,6 @@ public class LoginFragment extends BaseHomeFragment {
                 String res = oj.getString("msg");
                 if(res.equals("ok")) {
                     //登录成功
-                    int id = oj.getInt("message");
-                    Utils.updateUserInfo(getActivity(), id, name, null, pass, true);
                     Intent intent = new Intent(getActivity(), MainActivity.class);
                     startActivity(intent);
                     getActivity().finish();

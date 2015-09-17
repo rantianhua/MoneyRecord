@@ -60,7 +60,6 @@ public class MainActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initView();
-        requestQueue = Volley.newRequestQueue(this);
     }
 
     /**
@@ -78,79 +77,8 @@ public class MainActivity extends FragmentActivity {
     /**
      * 创建一条记录
      */
-    private RequestQueue requestQueue;
     private void createRcord() {
         Intent intent = new Intent(MainActivity.this,CreateRecordActivity.class);
         startActivity(intent);
-
-
-
-        ///////////////测试后台接口
-//        String url = "http://1.moneyrecord.sinaapp.com/api/saverecord.php";
-//        StringRequest stringRequest = new StringRequest(Request.Method.POST, url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String s) {
-//                if(s != null) {
-//                    Log.e("onResponse",s);
-//                }else {
-//                    Log.e("onResponse","null data");
-//                }
-//            }
-//        },new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError volleyError) {
-//                Log.e("onErrorResponse",volleyError.getMessage());
-//            }
-//        }) {
-//            @Override
-//            protected Map<String, String> getParams() throws AuthFailureError {
-//                Map<String, String> params = new HashMap<>();
-//                params.put("uid", 1+"");
-//                params.put("main_title", "行车交通");
-//                params.put("sub_title", "打车租车");
-//                params.put("icon_id", R.mipmap.jiangxuejin+"");
-//                params.put("money", "100.34");
-//                params.put("remark", "是的是的的是的时间的还是");
-//                params.put("year",2015+"");
-//                params.put("month", 9+"");
-//                params.put("date", 11+"");
-//                params.put("time", "12:34");
-//                return params;
-//            }
-//        };
-//        requestQueue.add(stringRequest);
-//        Map<String, String> params = new HashMap<>();
-//        params.put("uid", 1+"");
-//        params.put("main_title", "行车交通");
-//        params.put("sub_title", "打车租车");
-//        params.put("icon_id", R.mipmap.jiangxuejin+"");
-//        params.put("money", "100.34");
-//        params.put("remark", "是的是的的是的时间的还是");
-//        params.put("year",2015+"");
-//        params.put("month", 9+"");
-//        params.put("date", 11+"");
-//        params.put("time", "12:34");
-//        JSONObject object = new JSONObject(params);
-//        Log.e("jsonObject", object.toString());
-//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, url, object,
-//                new Response.Listener<JSONObject>() {
-//                    @Override
-//                    public void onResponse(JSONObject jsonObject) {
-//                        if(jsonObject != null) {
-//                            Log.e("onResponse",jsonObject.toString());
-//                        }
-//                    }
-//                }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError volleyError) {
-//                Log.e("onErrorResponse",volleyError.getMessage());
-//            }
-//        }){
-//            @Override
-//            public Map<String, String> getHeaders() throws AuthFailureError {
-//                return super.getHeaders();
-//            }
-//        };
-//        requestQueue.add(jsonObjectRequest);
     }
 }
